@@ -3,6 +3,15 @@
 @theme inline {
   --font-heading: var(--font-inter);
   --font-sans: var(--font-poppins);
+
+  /* Salutia brand tokens (Brandbook 2.0) */
+  --color-brand-navy: #28347c;
+  --color-brand-blue: #2b4c9c;
+  --color-brand-orange: #ee742f;
+  --color-brand-surface: #e8f4fb;
+  --color-brand-ink: #333333;
+  --color-brand-ink-muted: #666666;
+  --color-brand-bg: #fafafa;
 }
 
 * { -webkit-tap-highlight-color: transparent; }
@@ -19,13 +28,4 @@
 .chart-line {
   stroke-dasharray: 800;
   animation: draw-line 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* Salu pulse glow (thinking state) */
-@keyframes salu-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(1.12); }
-}
-.salu-pulse {
-  animation: salu-pulse 2s ease-in-out infinite;
 }

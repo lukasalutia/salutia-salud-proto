@@ -56,7 +56,7 @@ const metrics: Metric[] = [
       { label: "Mar", value: 14.5 },
       { label: "Jun", value: 13.9 },
     ],
-    lineColor: "#d97706",
+    lineColor: "#c07a1e",
     lastStatus: "amarillo",
   },
 ];
@@ -101,7 +101,6 @@ function MiniChart({ metric }: { metric: Metric }) {
   const line = smoothPath(pts);
   const area = `${line} L ${pts[pts.length - 1][0]},${H} L ${pts[0][0]},${H} Z`;
 
-  // Normal range band
   const bandTop = Math.max(padY, toY(metric.range.max));
   const bandBot = Math.min(H, toY(metric.range.min));
 
@@ -116,20 +115,16 @@ function MiniChart({ metric }: { metric: Metric }) {
         </linearGradient>
       </defs>
 
-      {/* Normal range band */}
       {bandBot > bandTop && (
         <rect x={padX} y={bandTop} width={cW} height={bandBot - bandTop}
               fill="#16a34a" fillOpacity="0.07" rx="3" />
       )}
 
-      {/* Area fill */}
       <path d={area} fill={`url(#${gradId})`} />
 
-      {/* Line */}
       <path d={line} stroke={metric.lineColor} strokeWidth="2.2" fill="none"
             strokeLinecap="round" strokeLinejoin="round" className="chart-line" />
 
-      {/* Dots */}
       {pts.map(([x, y], i) => {
         const isLast = i === pts.length - 1;
         return (
@@ -146,9 +141,9 @@ function MiniChart({ metric }: { metric: Metric }) {
 
 /* ── Status config ── */
 const statusCfg = {
-  verde:   { color: "#16a34a", bg: "rgba(22,163,74,0.1)",   label: "Normal" },
-  amarillo:{ color: "#d97706", bg: "rgba(217,119,6,0.1)",   label: "Vigilar" },
-  rojo:    { color: "#dc2626", bg: "rgba(220,38,38,0.1)",   label: "Revisar" },
+  verde:   { color: "#16a34a", bg: "#ecfdf3", label: "Normal" },
+  amarillo:{ color: "#c07a1e", bg: "#fef3e2", label: "Vigilar" },
+  rojo:    { color: "#d93232", bg: "#fdeded", label: "Revisar" },
 };
 
 /* ── Main component ── */
@@ -160,46 +155,33 @@ export function EvolucionSection({ isRich }: { isRich: boolean }) {
 
   if (!isRich) {
     return (
-      <div className="mx-4 mt-4">
-        <h2
-          className="text-[15px] font-bold mb-3"
-          style={{ color: "#28347c", fontFamily: "var(--font-inter)" }}
-        >
+      <div>
+        <h2 className="font-heading text-[13px] font-bold uppercase tracking-wide text-brand-navy/40 px-1 mb-3">
           Evolución
         </h2>
 
-        <div className="bg-white rounded-2xl p-4 border border-[#eef2f8]">
-          {/* Placeholder chart — greyed, dashed */}
+        <div className="bg-white rounded-2xl p-4 shadow-[0_1px_4px_rgba(0,0,0,0.04),0_4px_16px_rgba(43,76,156,0.07)] ring-1 ring-brand-navy/[0.05]">
           <svg width="100%" height="72" viewBox="0 0 290 72" preserveAspectRatio="none">
             <path
               d="M 10,50 C 40,50 50,28 72,28 C 94,28 104,55 145,55 C 180,55 200,30 220,30 C 240,30 260,42 280,38"
-              stroke="#c7d7e8" strokeWidth="2" fill="none" strokeDasharray="5 4"
+              stroke="#dbe3f0" strokeWidth="2" fill="none" strokeDasharray="5 4"
               strokeLinecap="round"
             />
             {[10, 72, 145, 220, 280].map((x, i) => (
               <circle key={i} cx={x} cy={[50, 28, 55, 30, 38][i]} r="4"
-                      fill="white" stroke="#c7d7e8" strokeWidth="2" />
+                      fill="white" stroke="#dbe3f0" strokeWidth="2" />
             ))}
-            {/* One real dot */}
             <circle cx={10} cy={50} r={5} fill="white" stroke="#2b4c9c" strokeWidth="2.2" />
             <circle cx={10} cy={50} r={3} fill="#2b4c9c" />
           </svg>
 
-          <p
-            className="text-center text-[12px] mt-2"
-            style={{ color: "#666", fontFamily: "var(--font-poppins)" }}
-          >
+          <p className="text-center text-[12px] mt-2 text-brand-navy/45">
             Cargá 2 análisis más para ver tu evolución
           </p>
 
           <button
-            className="mt-3 w-full py-2 rounded-xl border text-[13px] font-semibold
-                       active:bg-[#e8f4fb] transition-colors cursor-pointer"
-            style={{
-              borderColor: "#2b4c9c",
-              color: "#2b4c9c",
-              fontFamily: "var(--font-inter)",
-            }}
+            className="mt-3 w-full py-2.5 rounded-xl text-[13px] font-bold
+                       bg-brand-surface text-brand-blue active:opacity-70 transition-opacity cursor-pointer"
           >
             + Agregar análisis
           </button>
@@ -209,13 +191,12 @@ export function EvolucionSection({ isRich }: { isRich: boolean }) {
   }
 
   return (
-    <div className="mx-4 mt-4">
-      <h2
-        className="text-[15px] font-bold mb-3"
-        style={{ color: "#28347c", fontFamily: "var(--font-inter)" }}
-      >
-        Evolución
-      </h2>
+    <div>
+      <div className="flex items-center justify-between px-1 mb-3">
+        <h2 className="font-heading text-[13px] font-bold uppercase tracking-wide text-brand-navy/40">
+          Evolución
+        </h2>
+      </div>
 
       {/* Metric picker */}
       <div className="flex gap-2 mb-3 overflow-x-auto pb-0.5 no-scrollbar">
@@ -223,12 +204,12 @@ export function EvolucionSection({ isRich }: { isRich: boolean }) {
           <button
             key={m.id}
             onClick={() => setSelectedId(m.id)}
-            className="flex-shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-semibold
+            className="flex-shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-bold
                        transition-all duration-200 cursor-pointer"
             style={
               selectedId === m.id
-                ? { background: "#28347c", color: "white", fontFamily: "var(--font-inter)" }
-                : { background: "white", color: "#666", border: "1px solid #e2e8f0", fontFamily: "var(--font-inter)" }
+                ? { background: "#28347c", color: "white" }
+                : { background: "white", color: "#28347c66" }
             }
           >
             {m.name}
@@ -236,65 +217,33 @@ export function EvolucionSection({ isRich }: { isRich: boolean }) {
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl p-4 border border-[#eef2f8]">
-        {/* Header row */}
+      <div className="bg-white rounded-2xl p-4 shadow-[0_1px_4px_rgba(0,0,0,0.04),0_4px_16px_rgba(43,76,156,0.07)] ring-1 ring-brand-navy/[0.05]">
         <div className="flex items-start justify-between mb-1">
           <div className="flex items-baseline gap-1.5">
-            <span
-              className="text-[26px] font-bold"
-              style={{ color: "#28347c", fontFamily: "var(--font-inter)" }}
-            >
-              {last.value}
-            </span>
-            <span
-              className="text-[12px]"
-              style={{ color: "#999", fontFamily: "var(--font-poppins)" }}
-            >
-              {selected.unit}
-            </span>
+            <span className="font-heading text-[26px] font-bold text-brand-navy">{last.value}</span>
+            <span className="text-[12px] text-brand-navy/40">{selected.unit}</span>
           </div>
 
-          <div
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-            style={{ background: scfg.bg }}
-          >
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: scfg.bg }}>
             <div className="w-2 h-2 rounded-full" style={{ background: scfg.color }} />
-            <span
-              className="text-[11px] font-semibold"
-              style={{ color: scfg.color, fontFamily: "var(--font-inter)" }}
-            >
-              {scfg.label}
-            </span>
+            <span className="text-[11px] font-bold" style={{ color: scfg.color }}>{scfg.label}</span>
           </div>
         </div>
 
-        {/* Chart */}
         <div className="w-full mt-1">
           <MiniChart metric={selected} />
         </div>
 
-        {/* X-axis labels */}
         <div className="flex justify-between px-2.5 mt-0.5">
           {selected.data.map((d, i) => (
-            <span
-              key={i}
-              className="text-[10px]"
-              style={{ color: "#bbb", fontFamily: "var(--font-poppins)" }}
-            >
-              {d.label}
-            </span>
+            <span key={i} className="text-[10px] text-brand-navy/30">{d.label}</span>
           ))}
         </div>
 
-        {/* Range footer */}
-        <div className="mt-2.5 pt-2.5 border-t border-[#f5f7fa] flex items-center justify-between">
-          <span className="text-[10px]" style={{ color: "#bbb", fontFamily: "var(--font-poppins)" }}>
+        <div className="mt-2.5 pt-2.5 border-t border-brand-navy/[0.06] flex items-center justify-between">
+          <span className="text-[10px] text-brand-navy/35">
             Normal: {selected.range.min}–{selected.range.max} {selected.unit}
           </span>
-          <div className="flex items-center gap-1">
-            <div className="w-3 h-1.5 rounded-full" style={{ background: "rgba(22,163,74,0.2)" }} />
-            <span className="text-[10px]" style={{ color: "#bbb", fontFamily: "var(--font-poppins)" }}>rango</span>
-          </div>
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${inter.variable} ${poppins.variable} h-full`}>
       <body className="h-full bg-slate-200 flex items-start justify-center md:items-center md:min-h-screen">
-        <div className="w-full max-w-[393px] min-h-dvh bg-[#fafafa] relative overflow-hidden shadow-2xl">
+        <div className="w-full max-w-[393px] min-h-dvh bg-[#f2f5fb] relative overflow-hidden shadow-2xl">
           {children}
         </div>
       </body>
