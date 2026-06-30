@@ -55,13 +55,13 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
             </button>
           </div>
 
-          <div className="shrink-0 w-[64px] self-center">
+          <div className="shrink-0 relative self-center" style={{ width: 88, aspectRatio: "302 / 368" }}>
             <Image
               src="/salu-clipboard.png"
               alt=""
-              width={302}
-              height={368}
-              className="w-full h-auto pointer-events-none select-none"
+              fill
+              sizes="88px"
+              className="object-contain pointer-events-none select-none"
               priority
             />
           </div>
@@ -83,13 +83,13 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
               </p>
             </div>
 
-            <div className="shrink-0 w-[68px] self-center">
+            <div className="shrink-0 relative self-center" style={{ width: 100, aspectRatio: "302 / 368" }}>
               <Image
                 src="/salu-clipboard.png"
                 alt=""
-                width={302}
-                height={368}
-                className="w-full h-auto pointer-events-none select-none"
+                fill
+                sizes="100px"
+                className="object-contain pointer-events-none select-none"
                 priority
               />
             </div>
