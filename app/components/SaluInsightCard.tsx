@@ -29,7 +29,7 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
 
       {isRich ? (
         /* ── Estado B: Salu activo con insights reales ── */
-        <div className="relative flex gap-2">
+        <div className="relative flex gap-3 items-center">
           <div className="flex-1 min-w-0">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15 mb-3">
               <Sparkles className="h-3 w-3 text-white/70" strokeWidth={2.5} />
@@ -55,7 +55,7 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
             </button>
           </div>
 
-          <div className="shrink-0 w-[72px] self-end -mb-1">
+          <div className="shrink-0 w-[64px] self-center">
             <Image
               src="/salu-clipboard.png"
               alt=""
@@ -69,7 +69,7 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
       ) : (
         /* ── Estado A: Onboarding / poca data ── */
         <div className="relative">
-          <div className="flex gap-2 items-start">
+          <div className="flex gap-3 items-center">
             <div className="flex-1 min-w-0">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15 mb-3">
                 <Sparkles className="h-3 w-3 text-white/70" strokeWidth={2.5} />
@@ -83,7 +83,7 @@ export function SaluInsightCard({ isRich }: { isRich: boolean }) {
               </p>
             </div>
 
-            <div className="shrink-0 w-[80px] -mt-2 -mr-1">
+            <div className="shrink-0 w-[68px] self-center">
               <Image
                 src="/salu-clipboard.png"
                 alt=""
